@@ -21,4 +21,4 @@ def binary_search(arr, target):
     return 0
 
 for a in arr2:
-    print(binary_search(arr, a))
+    print(binary_search(arr, a), end=' ')
