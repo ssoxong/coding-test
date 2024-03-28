@@ -1,12 +1,14 @@
 n, k = map(int,input().split())
 # n!/k!(n-k)!
 
-mul = 1
-for i in range(n-k+1, n+1):
-    mul*=i
+c=[[0]*1010 for _ in range(1010)]
+c[0][0]=1
 
-bmul = 1
-for i in range(1, k+1):
-    bmul*=i
+for i in range(1, n+1):
+    c[i][0]=1
+    for j in range(1, i+1):
+        c[i][j] = c[i-1][j]+c[i-1][j-1]
+        if c[i][j]>=10007:
+            c[i][j] -= 10007
 
-print((int)(mul/bmul)%10007)
+print(c[n][k])
