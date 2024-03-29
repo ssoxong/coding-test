@@ -6,13 +6,9 @@ maze = [list(map(int, input().strip())) for _ in range(n)]
 move = [[1, 0], [-1, 0], [0, 1], [0, -1]]  # 상하좌우
 
 def dfs(a, b):
-    print(a, b)
     print(maze[a][b])
    
-    if maze[a][b] == 3:
-        print("ee")
-        return 1  # 도착시 1 반환
-    maze[a][b] = 1
+    maze[a][b] = -1
 
     for dy, dx in move:
         ny, nx = a + dy, b + dx
