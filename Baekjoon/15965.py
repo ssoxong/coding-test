@@ -9,9 +9,6 @@ def sieve(n):
         for j in range(i+i, n+1, i):
             check[j] = 1 
 
-sieve(800000)
+sieve(8000000)
 k = int(input())
-
-for i in range(100):
-    print(primes[i])
-print(primes[k])
+print(primes[k-1])
