@@ -1,14 +1,29 @@
-check = [0]*8080808
+check = [0]*10000001
 primes = []
 
-def sieve(n):
-    for i in range(2, n+1):
+def sieve(b):
+    for i in range(2, b+1):
         if check[i]: 
             continue
         primes.append(i)
-        for j in range(i+i, n+1, i):
+        for j in range(i+i, b+1, i):
             check[j] = 1 
+sieve(10000000)
+a, b = map(int,input().split())
 
-sieve(8000000)
-sieve(100000001)
-print(primes)
+for p in primes:
+    if p<a: continue
+    if p>b: break
+
+    strp = str(p)
+    if len(strp)==1 and p>=a:
+        print(p)
+        continue
+
+    for i in range(len(strp)//2):
+        if strp[i]!=strp[-i-1]:
+            break
+        if i==len(strp)//2-1:
+            print(p)
+
+print("-1")
