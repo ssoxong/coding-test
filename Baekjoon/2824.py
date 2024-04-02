@@ -1,27 +1,21 @@
 def gcd(a, b):
-    if b:
-        return gcd(b, a%b)
-    else:
-        return a
+    while b:
+        tmp = a
+        a = b
+        b = tmp%b
+    return a
 
-sp=[0]*1010101010
-def sieve(n):
-    for i in range(2, n+1):
-        if sp[i]: continue
-        sp[i] = i
-        for j in range(i+i, n+1, i):
-            if not sp[j]:
-                sp[j]=i
-    
+n1 = int(input())
+list1 = list(map(int,input().split()))
+n2 = int(input())
+list2 = list(map(int,input().split()))
 
-sieve(1000000000)
-n = int(input())
+mul1 = 1
+mul2 = 1
+for l1 in list1:
+    mul1*=l1
 
-xlist = list(map(int,input().split()))
+for l2 in list2:
+    mul2*=l2
 
-for i in range(1,n+1):
-    x=xlist[i-1]
-    while x>1:
-        print(sp[x], end=" ")
-        x//=sp[x]
-    print()
+print(str(gcd(mul1,mul2))[-9:])
