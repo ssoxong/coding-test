@@ -1,36 +1,25 @@
-def gcd(a, b):
-    if b:
-        return gcd(b, a%b)
-    else:
-        return a
+# 메모리초과
+def sieve(b):
+    for i in range(2, b+1):
+        if check[i]: 
+            continue
+        for j in range(i*i, b+1, i):
+            check[j] = True
 
+n = int(input())
+check=[False]*(n+1)
+sieve(n)
 
-nmax = 101010
-check = [0]*nmax
+ans=1
+primes=[]
+primes.append(2)
+for i in range(3, n+1):
+    if not check[i]:
+        primes.append(i)   
 
-for i in range(2, nmax):
-    if check[i]: continue
-    # prime.append(i)
-    for j in range(i+i, nmax, i):
-        check[j] = 1
+for prime in primes:
+    tmp = 1
+    while tmp*prime<=n: tmp*=prime
+    ans = (ans*tmp)%4294967296
 
-klist = [0]*nmax
-t = int(input())
-for i in range(t):
-    n = int(input())
-
-    for k in range(1, n+1):
-        tmp = k
-        cnt=0
-        if klist[k]: continue
-
-        for j in range(1,k+1):
-            if gcd(tmp, k-j)==1:
-                tmp = tmp*(k-j)
-
-                cnt+=1
-                if cnt==k:
-                    break
-        klist[k] = max(tmp, klist[k-1])
-
-    print(klist[n]%pow(2,32))
+print(ans)
