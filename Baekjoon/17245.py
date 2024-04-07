@@ -9,11 +9,11 @@ start = 0
 end = max(nlist)
 while start <= end:
     mid = (start + end) // 2
-    sums = 0
+    sum = 0
     for nl in nlist:
-        sums += nl if nl < mid else mid
+        sum += nl if nl < mid else mid
 
-    if sums < total / 2:
+    if sum < total / 2:
         start = mid + 1
     else:
         ans = mid
