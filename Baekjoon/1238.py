@@ -35,7 +35,8 @@ for i in range(m):
     graph[a].append((b,w))
     std.add(a)
 
-ans = 0
+ans = -1
 for i in std:
     ans = max(ans, dijkstra(i, x)+dijkstra(x, i))
+
 print(ans)
