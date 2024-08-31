@@ -27,4 +27,3 @@ sorted_d = sorted(dict)
 for k in sorted_d:
     v = dict[k]
     print(k, f"{v/total*100:.4f}")
-

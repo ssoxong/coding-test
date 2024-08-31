@@ -13,7 +13,6 @@ def dijkstra(start, dst):
 
     heapq.heappush(q, (0, start))
     dist[start] = 0
-    visit[start].append(start)
 
     while q:
         nd, now = heapq.heappop(q)
@@ -25,7 +24,6 @@ def dijkstra(start, dst):
 
             if cost<dist[b]:
                 dist[b]=cost
-                visit[b].append(now)
                 heapq.heappush(q, (cost, b))
     print(visit)
     return dist[dst]
