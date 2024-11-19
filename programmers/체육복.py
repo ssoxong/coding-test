@@ -1,23 +1,22 @@
 def solution(n, lost, reserve):
-    answer = 0
-    have = [1 for _ in range(n)]
+    cur = [1 for _ in range(n+1)]
+
     for r in reserve:
-        have[r-1]+=1
-    
+        cur[r]+=1
     for l in lost:
-        have[l-1]-=1
-        
-        
-    for index, h in enumerate(have):
-        if(h==0):
-            if(index!=0 and have[index-1]>1):
-                have[index-1]-=1
-                have[index]=1
-            elif (index!=n-1 and have[index+1]>1):
-                have[index+1]-=1
-                have[index]=1  
+        cur[l]-=1
     
-    for h in have:
-        if(h!=0):
-            answer+=1
-    return answer
+    print(cur)
+
+    for i in range(1, len(cur)-1):
+        print(cur)
+        if cur[i]!=2: continue
+        
+        if cur[i-1]==0: cur[i-1]=1; cur[i]-=1
+        elif cur[i+1]==0: cur[i+1]=1; cur[i]-=1
+    
+    if cur[-1]==2 and cur[-2]==0: cur[-2]=1
+
+    return len([x for x in cur if x>0])-1
+
+print(solution(5	,[2, 4],	[1, 3, 5]))
