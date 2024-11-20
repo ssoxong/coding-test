@@ -32,7 +32,7 @@ def solution(blen, weight, tw):
 
         else: i-=1
         i+=1
-        print(time, tmap, curt)
+        # print(time, tmap, curt)
     return time+blen
 
 print(solution(100,100,[10,10,10,10,10,10,10,10,10,10]		))

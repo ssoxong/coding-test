@@ -10,7 +10,6 @@ def solution(m, n, puddles):
                 dp[j][i] = 0
             else:
                 dp[j][i] = (dp[j-1][i]+dp[j][i-1])%1000000007
-
     return dp[n][m]
 
 print(solution(4,3,[[2,1]]))

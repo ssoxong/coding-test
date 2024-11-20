@@ -1,34 +1,35 @@
+from collections import deque
 def solution(begin, target, words):
-    answer = 0
-    # 변환할 수 없음
-    if target not in words:
-        return answer
-    visited = [False for _ in range(len(words))]
-    cnt = 0 
-    ans = []
+    if target not in words: return 0
     
-    def dfs(a,b):
-        nonlocal cnt
-        if a==b:
-            ans.append(cnt)
-            return
+    q = deque([(-1,0)])
+    visited = [False]*len(words)
+    while(q):
+        i, cnt = q.popleft()
+        if i!=-1: 
+            begin = words[i]
         
-        for i, w in enumerate(words):
-            if visited[i]: continue
-            
-            # 하나만 차이나는 워드로 변경
-            diff=0
-            for j in range(len(w)):
-                if a[j]!=w[j]: diff+=1
-                if diff>1: break
-            if diff>1: continue
-            
-            visited[i]=True
-            cnt+=1
-            dfs(w, b)
-            visited[i]=False
-            cnt-=1
-        
-    dfs(begin, target)
+        # print(begin)
 
-    return min(ans)
+        if begin==target:
+            return cnt
+
+        for j, word in enumerate(words):
+            oneDiff = False
+            for k in range(len(target)):
+                b = begin[k]
+                w = word[k]
+                # print(b,w)
+
+                if b!=w: 
+                    if oneDiff: oneDiff=False; break
+                    oneDiff=True
+
+            if oneDiff and not visited[j]:
+                # print(begin, word)
+                visited[j]=True
+                q.append((j,cnt+1))
+
+        if i==-1: continue
+
+print(solution("hit",	"cog"	,["hot", "dot", "dog", "lot", "log", "cog"]))
