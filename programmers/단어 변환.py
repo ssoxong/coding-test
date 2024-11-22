@@ -1,35 +1,19 @@
 from collections import deque
 def solution(begin, target, words):
     if target not in words: return 0
-    
-    q = deque([(-1,0)])
-    visited = [False]*len(words)
+
+    q = deque([(begin, 0)])
+    visited = [0 for _ in range(len(words))]
     while(q):
-        i, cnt = q.popleft()
-        if i!=-1: 
-            begin = words[i]
-        
-        # print(begin)
-
-        if begin==target:
+        cur, cnt = q.popleft()
+        if cur==target:
             return cnt
+        for i, w in enumerate(words):
+            cha = 0
+            for a, b in zip(list(cur), list(w)):
+                if a!=b: cha+=1
+            if cha==1:
+                visited[i]=1
+                q.append((w, cnt+1))
 
-        for j, word in enumerate(words):
-            oneDiff = False
-            for k in range(len(target)):
-                b = begin[k]
-                w = word[k]
-                # print(b,w)
-
-                if b!=w: 
-                    if oneDiff: oneDiff=False; break
-                    oneDiff=True
-
-            if oneDiff and not visited[j]:
-                # print(begin, word)
-                visited[j]=True
-                q.append((j,cnt+1))
-
-        if i==-1: continue
-
-print(solution("hit",	"cog"	,["hot", "dot", "dog", "lot", "log", "cog"]))
+print(solution("hit",	"cog"	,["hot", "dot", "dog", "lot", "log"]))
