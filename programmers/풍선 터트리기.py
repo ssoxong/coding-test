@@ -1,20 +1,15 @@
-def solution(a):
-    answer = 0
-    left, right = a[0], min(a[1:])
-    dp = [[0 for _ in range(len(a))] for _ in range(2)]
-    dp[0][0] = a[0]
-    dp[1][-1] = a[-1]
-    for i in range(1, len(a)):
-        dp[0][i] = min(dp[0][i-1],a[i])
-    for i in range(len(a)-2, -1, -1):
-        dp[1][i] = min(dp[1][i+1],a[i])
-    
-    for i in range(1,len(a)-1):
-        last = a[i]
-        left = dp[0][i-1]
-        right = dp[1][i+1]
-        if (left>last or right>last):answer+=1
-
-    return answer+2
-
-print(solution([100,1,2,101]))
+def solution(arr):
+    ma = [[x for x in arr], [x for x in arr[::-1]]]
+    for i in range(1, len(arr)):
+        ma[0][i]=min(ma[0][i], ma[0][i-1])
+    for i in range(1, len(arr)):
+        ma[1][i]=min(ma[1][i], ma[1][i-1])
+    ma[1] = ma[1][::-1]
+    # print(ma)
+        
+    cnt = 0
+    for i in range(len(arr)):
+        if ma[0][i]>=arr[i] or ma[1][i]>=arr[i]:
+            cnt+=1
+        
+    return cnt
