@@ -1,25 +1,23 @@
 from collections import Counter
 
 def solution(n, results):
-    score = [[0 for _ in range(n+1)]for _ in range(n+1)]
-    for a, b in results:
-        score[a][b]=1
-        score[b][a]=-1
+    score = [set()for _ in range(n+1)]
+    for w, l in results:
+        score[w].add(l)
+    for i in range(1, n+1):
+        for s in score:
+            ss=list(s)
+            for j in range(len(ss)):
+                s.update(score[ss[j]])
+                
+    cnt = [0]*(n+1)
+    
+    for i,s in enumerate(score):
+        for ss in s:
+            cnt[ss]+=1
+        cnt[i]+=len(s)
 
-    answer = 0
-    for k in range(1, n+1):
-        for i in range(1, n+1):
-            for j in range(1, n+1):
-                if score[i][j]!=0: continue
-                if score[i][k]==1 and score[k][j]==1:
-                    score[i][j] = 1
-                if score[i][k]==-1 and score[k][j]==-1:
-                    score[i][j] = -1
-    for s in score:
-        if Counter(s)[0]==2:
-            answer+=1
-
-    return answer
+    return cnt.count(n-1)
 
 
 print(solution(5, [[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]	))
